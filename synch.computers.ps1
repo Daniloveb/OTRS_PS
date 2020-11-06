@@ -1,15 +1,23 @@
-﻿# v1 Создаем и обновляем компьютеры и привязываем к пользователям
+﻿function synch-computers {
+# v1 Создаем и обновляем компьютеры и привязываем к пользователям
 # для записей из ParkPC измененных за последние $Days
+[CmdletBinding()]
 param (
     [Parameter( Mandatory = $true )] [int] $Days) #число)
+
+$ErrorActionPreference='Stop'
     
 #=====Logger
-. "$PSScriptRoot\get-logger.ps1"
-$Logger = Get-Logger "$PSScriptRoot\Log.txt"
+Write-Debug "$($MyInvocation.MyCommand.Name) $($MyInvocation.BoundParameters.Values[0])"
+$Logger.AddInfoRecord("$($MyInvocation.MyCommand.Name) $($MyInvocation.BoundParameters.Values[0]) ")
 
-. "$PSScriptRoot\functions.location.ps1"
-. "$PSScriptRoot\functions.ci.ps1"
+. "$PSScriptRoot\functions.computer.ps1"
 . "$PSScriptRoot\functions.link.ps1"
+. "$PSScriptRoot\functions.share.ps1"
+. "$PSScriptRoot\Set-GlobalVars.ps1"
+
+    Write-Debug "$($MyInvocation.MyCommand.Name) $($MyInvocation.BoundParameters.Values[0])"
+    $Logger.AddInfoRecord("$($MyInvocation.MyCommand.Name) $($MyInvocation.BoundParameters.Values[0]) ")
 
 [string]$DatabaseName = 'ParkPC'
 [string]$SQLServerName = 'vsql2016.novator.ru'
@@ -45,7 +53,7 @@ $conn = New-Object System.Data.SqlClient.SqlConnection($connString)
     while ($cmdR.Read()) { 
         Write-Host ==============================================
         #====NK=====
-        $NK = $cmdR['Num_Komp']
+        [int]$NK = $cmdR['Num_Komp']
         Write-host "NK" $NK
        
 
@@ -56,7 +64,7 @@ $conn = New-Object System.Data.SqlClient.SqlConnection($connString)
             Default {$Network = 'Local'; Write-Host "Local"}
         }
         #====User_FIO=====
-        $Owner=''
+        $Owner=' '
         Write-Host User_FIO = $cmdR['User_FIO']
         $User_FIO = $cmdR['User_FIO']; if ($User_FIO -is [System.DBNull]){$User_FIO = ""}
         switch ($cmdR['User_FIO']) {
@@ -66,6 +74,7 @@ $conn = New-Object System.Data.SqlClient.SqlConnection($connString)
             {$User_FIO.Contains("СКЛАД")}{$State = 'Склад'; Write-Host "Склад"}
             Default {if ($User_FIO -ne "") {
                 $Owner = (get-aduser -Filter "Name -like '*$User_FIO*'").samaccountname
+                if ($Owner -eq '' -or $Owner -eq $null){$Owner = ' '}
                 $State = 'В работе'
                 Write-Host "Owner" $User_FIO $Owner
                 }
@@ -94,8 +103,8 @@ $conn = New-Object System.Data.SqlClient.SqlConnection($connString)
         #$Secure = $cmdR['SpecProv']
         $Secure = 'No'
         if ($Type -eq 'СХД')
-        {   
-            $id = search-id_forNK "Hardware" $NK
+        {            
+            $id = get-ConfigItemId "Hardware" $NK
             if ($id -eq $null){
                 Write-host "create KE"
             $configitem_id = create-hardware $NK 
@@ -110,7 +119,7 @@ $conn = New-Object System.Data.SqlClient.SqlConnection($connString)
         {
             $Incident = 'Исправен'
              #Проверяем существование компьютера
-            $id = search-id_forNK "Computer" $NK
+            $id = get-ConfigItemId "Computer" $NK
             Write-host "id" $id
             if ($id -eq $null){
                 #создаем КЕ
@@ -119,12 +128,11 @@ $conn = New-Object System.Data.SqlClient.SqlConnection($connString)
                 #====================================================================================================
                 #   Link to locations
                 #====================================================================================================
-                $geo_id = search-location_id-for_NK $NK
+                $geo_id = get-C2LinkedLocationName $NK
                 if ([string]::IsNullOrEmpty($geo_id) -eq $false)   {
-                create-link ITSMConfigItem $configitem_id ITSMConfigItem $geo_id Includes
-                Write-host "Cвязан с geo_id $geo_id"
-                Write-host "+++++++++++++++++++++++++++++++++++++++++++++++++++++"
-            }
+                    create-link ITSMConfigItem $configitem_id ITSMConfigItem $geo_id ConnectedTo Valid 4
+                    Write-host "Cвязан с geo_id $geo_id"
+                }
             }
             else # update computer
             {
@@ -138,3 +146,4 @@ $conn = New-Object System.Data.SqlClient.SqlConnection($connString)
 }
 $cmdR.Close()
 $conn.Close()
+}

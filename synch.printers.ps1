@@ -1,17 +1,16 @@
 ﻿# v1 Синхронизируем принтеры и привязываем к локациям
 # - Перебираем записи с максимальным NK в С2 и создаем принтеры которых нет в OTRS
 
-#Set-StrictMode -Version Latest
-#$ErrorActionPreference='Stop'
-Get-Date | Write-Host 
+Set-StrictMode -Version Latest
+$ErrorActionPreference='Stop'
 
-#=====Logger
-#. "$PSScriptRoot\get-logger.ps1"
-#$Logger = Get-Logger "$PSScriptRoot\Log.txt"
-
-. "$PSScriptRoot\functions.location.ps1"
-. "$PSScriptRoot\functions.ci.ps1"
+. "$PSScriptRoot\functions.printer.ps1"
 . "$PSScriptRoot\functions.link.ps1"
+. "$PSScriptRoot\functions.share.ps1"
+. "$PSScriptRoot\Set-GlobalVars.ps1"
+
+    Write-Debug "$($MyInvocation.MyCommand.Name) $($MyInvocation.BoundParameters.Values[0])"
+    $Logger.AddInfoRecord("$($MyInvocation.MyCommand.Name) $($MyInvocation.BoundParameters.Values[0]) ")
 
 [string]$DatabaseName = 'C2'
 [string]$SQLServerName = 'vsql2016.novator.ru'
@@ -31,7 +30,7 @@ $cmdR = $cmd.ExecuteReader()
 while ($cmdR.Read()) { 
     Write-Host ==============================================
     #====NK=====
-    $NK = $cmdR['NK']
+    [int]$NK = $cmdR['NK']
     Write-host "NK" $NK
     $Name = $cmdR['Name']
     $IPAddress = $cmdR['IPAddress']
@@ -42,8 +41,8 @@ while ($cmdR.Read()) {
     $Incident = 'Исправен'
 
 # Если принтер не существует в OTRS- создаем
-#$id = search-id_forNK "Computer" 3354
-$id = search-id_forNK 'Printer' $NK
+#$id = search-id_forNK 'Printer' $NK
+$id = get-ConfigItemId "Printer" $NK
 Write-Host ('id ' + $id)
 if ([string]::IsNullOrEmpty($id)){
     $configitem_id = create-printer $NK $Name $State $Incident $Description $Model $IPAddress $MACAddress
@@ -52,15 +51,14 @@ if ([string]::IsNullOrEmpty($id)){
             #====================================================================================================
             #   Link to locations
             #====================================================================================================
-            $geo_id = search-location_id-for_PrinterName $Name
+            $geo_id = get-C2LinkedLocationName $Name
             if ([string]::IsNullOrEmpty($geo_id) -eq $false)   {
                 #start-sleep -s 5
-                create-link ITSMConfigItem $configitem_id ITSMConfigItem $geo_id Includes
+                create-link ITSMConfigItem $configitem_id ITSMConfigItem $geo_id ConnectedTo Valid 4
                 Write-host "Cвязан с geo_id $geo_id"
                 Write-host "+++++++++++++++++++++++++++++++++++++++++++++++++++++"
             }
             #Pause
-            Write-host "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
 }
 else {
     Exit

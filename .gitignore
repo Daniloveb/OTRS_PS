@@ -1,1 +1,6 @@
 ﻿.vscode/launch.json
+create.all.computers.ps1
+create.all.locations.ps1
+create.all.printers.ps1
+testlog.ps1
+
