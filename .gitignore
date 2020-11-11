@@ -3,4 +3,8 @@ create.all.computers.ps1
 create.all.locations.ps1
 create.all.printers.ps1
 testlog.ps1
-
+functions.c2.ps1
+httpw.ps1
+Log.txt
+Set-GlobalVars.ps1
+test.ps1
