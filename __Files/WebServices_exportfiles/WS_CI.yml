@@ -1,0 +1,58 @@
+---
+Debugger:
+  DebugThreshold: debug
+  TestMode: '0'
+Description: ''
+FrameworkVersion: 6.0.23
+Provider:
+  Operation:
+    Operation_CI_Create:
+      Description: ''
+      IncludeTicketData: '0'
+      Type: ConfigItem::ConfigItemCreate
+    Operation_CI_Delete:
+      Description: ''
+      IncludeTicketData: '0'
+      Type: ConfigItem::ConfigItemDelete
+    Operation_CI_Get:
+      Description: ''
+      IncludeTicketData: '0'
+      Type: ConfigItem::ConfigItemGet
+    Operation_CI_Search:
+      Description: ''
+      IncludeTicketData: '0'
+      Type: ConfigItem::ConfigItemSearch
+    Operation_CI_Update:
+      Description: ''
+      IncludeTicketData: '0'
+      Type: ConfigItem::ConfigItemUpdate
+    Operation_Link_Add:
+      Description: ''
+      IncludeTicketData: '0'
+      Type: LinkObject::LinkAdd
+    Operation_Link_Delete:
+      Description: ''
+      IncludeTicketData: '0'
+      Type: LinkObject::LinkDelete
+    Operation_Link_List:
+      Description: ''
+      IncludeTicketData: '0'
+      Type: LinkObject::LinkList
+  Transport:
+    Config:
+      AdditionalHeaders: ~
+      MaxLength: '100000'
+      NameSpace: http://www.otrs.org/Connector/
+      RequestNameFreeText: ''
+      RequestNameScheme: Plain
+      ResponseNameFreeText: ''
+      ResponseNameScheme: Response
+      SOAPAction: Yes
+      SOAPActionFreeText: ''
+      SOAPActionScheme: NameSpaceSeparatorOperation
+      SOAPActionSeparator: /
+    Type: HTTP::SOAP
+RemoteSystem: ''
+Requester:
+  Transport:
+    Type: ''

@@ -1,4 +1,4 @@
-   function get-domainuser-login{
+﻿   function get-domainuser-login{
             [CmdletBinding()]
 	param (
        [Parameter( Mandatory = $true )] [string] $ID_Personel
@@ -72,15 +72,20 @@
         Write-host OwnerId $cmdR['ApplicantId']
         $Author = get-domainuser-login $cmdR['ApplicantId']
         Write-host Owner $Owner
-        $RegNoPrefix = $cmdR['RegNoPrefix']
+        [string]$RegNoPrefix = $cmdR['RegNoPrefix'].ToString()
         $Text = $cmdR['Text']
         $ww = $cmdR['StartDate']
         #$Title = "16_otd " $RegNoPrefix #" " $RegNoValue $cmdR['StartDate'] $Text.Substring(0,50)
         if ($Text.Length -gt 50) {$Title = $Text.Substring(0,50) } 
         else {$Title = $Text }
         $Title = "16_otd " + $RegNoPrefix + " " + $RegNoValue + " " + $cmdR['StartDate'] + " " +$Title
+        #Статус
         if ($cmdR['Status'] -eq 5) {
+            # в работе
             $Status = 2
+        }
+        elseif ($cmdR['Status'] -eq 2) {
+            $Status = 6
         }
         else {
             $Status = 4
@@ -89,7 +94,21 @@
         # $Title,    [string] $CustomerLogin,[string] $Owner, [int] $QueryID,  [int] $TicketStateID, # 4-> open, 2 -> closed  [int] $PriorityID,      [Parameter( Mandatory = $true )] [int] $TypeID,
         #   [int] $LockID,      [string] $ArticleSubject,      [string] $ArticleBody
         #$ArticleSubjext = $RegNoPrefix + " " + $RegNoValue
-        create-ticket $Title $Author $Owner 11 $Status 3 2 1 $ArticleSubject $Text
+
+        # Очередь
+
+        switch ($RegNoPrefix){
+            "Norm" {$query = 12}
+            "Dem" {$query = 13}
+            "Тех" {$query = 15}
+            "Tec" {$query = 15}
+            "НСИ" {$query = 16}
+            default {$query = 11}
+        }
+        Write-Host "RegNoPrefix" $RegNoPrefix
+        Write-Host "query" $query
+
+        create-ticket $Title $Author $Owner $query $Status 3 2 1 $ArticleSubject $Text
         write-host ok
         #create-ticket Title_text PolyakovMV DanilovEB 1 4 3 2 1 test_article_Subject test_article_text
     

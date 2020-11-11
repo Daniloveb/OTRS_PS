@@ -3,6 +3,7 @@
     .SYNOPSIS
     Sync SCS changes
     Синхронизируем выборку измененений в SCS из С2 за последний период
+    SCS = DB, собираемая с активного сетевого оборудования.
     .DESCRIPTION
     For use this functions you have to create SOAP Webservice with named operation.
     Webservice yaml files, modules and more detail: https://github/daniloveb/otrs_ps
@@ -55,16 +56,13 @@
     $conn.Open()
     $cmd = New-Object System.Data.SqlClient.SqlCommand($SQLCommand, $conn)
     $cmdR = $cmd.ExecuteReader()
-    $PrinterName = ""
+    #$PrinterName = ""
     while ($cmdR.Read()) { 
         $NK = $null
-        $PrinterName = $null
+        #$PrinterName = $null
         Write-Host ==============================================
         $NameSQL = $cmdR['Name']
         $Name = $NameSQL.Substring(0,$NameSQL.Indexof(':'))
-        #if ($NameSQL.Contains("PRN")) {
-        #    $PrinterName = $NameSQL.Substring(0,$NameSQL.Indexof(':'))    }
-        #else { [int]$NK = $NameSQL.Substring(0,$NameSQL.Indexof(':'))      }
     Write-host Name $Name
     #Ищем связанную локация в с2
     $c2LinkedLocationName = get-C2LinkedLocationName $Name
@@ -86,7 +84,7 @@
     Write-Host IDs $Ids
     #удаляем все связи с локациями кроме нужной
     if ($Ids -match $linkedLocationId){
-        $Ids = $Ids | where {$_ -ne $linkedLocationId}
+        $Ids = $Ids | Where-Object {$_ -ne $linkedLocationId}
     }
     else {
         create-link ITSMConfigItem $CIID ITSMConfigItem $linkedLocationId ConnectedTo Valid 1

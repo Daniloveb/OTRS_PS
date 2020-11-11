@@ -9,3 +9,4 @@ Log.txt
 Set-GlobalVars.ps1
 test.ps1
 ad.ps1
+sync.computers.ps1

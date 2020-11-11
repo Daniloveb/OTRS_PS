@@ -1,4 +1,4 @@
- function get-C2LinkedLocationName{
+﻿ function get-C2LinkedLocationName{
  <#
    .SYNOPSIS
    search Location name from C2

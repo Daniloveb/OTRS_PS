@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<otrs_config version="2.0" init="Application">
+<Setting Name="GenericInterface::Operation::Module###ArticleBackendObject::ArticleCreate" Required="0" Valid="1">
+        <Description Translatable="1">GenericInterface module registration for the operation layer.</Description>
+        <Group>GenericInterface</Group>
+        <Navigation>GenericInterface::Operation::ModuleRegistration</Navigation>
+        <Value>
+            <Hash>
+                <Item Key="Name">ArticleCreate</Item>
+                <Item Key="Controller">ArticleBackendObject</Item>
+                <Item Key="ConfigDialog">AdminGenericInterfaceOperationDefault</Item>
+            </Hash>
+        </Value>
+    </Setting>
+</otrs_config>

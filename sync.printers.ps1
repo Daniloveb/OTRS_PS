@@ -13,7 +13,6 @@ $ErrorActionPreference='Stop'
     $Logger.AddInfoRecord("$($MyInvocation.MyCommand.Name) $($MyInvocation.BoundParameters.Values[0]) ")
 
 [string]$DatabaseName = 'C2'
-[string]$SQLServerName = 'vsql2016.novator.ru'
 
 [string]$connString = 'Server=' + $SQLServerName + ';Database=' + $DatabaseName + ';Persist Security Info=False;Integrated Security=SSPI'
 [string]$SQLCommand = "
@@ -41,7 +40,6 @@ while ($cmdR.Read()) {
     $Incident = 'Исправен'
 
 # Если принтер не существует в OTRS- создаем
-#$id = search-id_forNK 'Printer' $NK
 $id = get-ConfigItemId "Printer" $NK
 Write-Host ('id ' + $id)
 if ([string]::IsNullOrEmpty($id)){
@@ -53,12 +51,10 @@ if ([string]::IsNullOrEmpty($id)){
             #====================================================================================================
             $geo_id = get-C2LinkedLocationName $Name
             if ([string]::IsNullOrEmpty($geo_id) -eq $false)   {
-                #start-sleep -s 5
                 create-link ITSMConfigItem $configitem_id ITSMConfigItem $geo_id ConnectedTo Valid 4
                 Write-host "Cвязан с geo_id $geo_id"
                 Write-host "+++++++++++++++++++++++++++++++++++++++++++++++++++++"
             }
-            #Pause
 }
 else {
     Exit
