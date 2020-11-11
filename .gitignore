@@ -8,3 +8,4 @@ httpw.ps1
 Log.txt
 Set-GlobalVars.ps1
 test.ps1
+ad.ps1
