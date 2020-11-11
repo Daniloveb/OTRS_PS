@@ -1,4 +1,4 @@
-﻿function synch-links {
+﻿function sync-links {
 <#
     .SYNOPSIS
     Sync SCS changes

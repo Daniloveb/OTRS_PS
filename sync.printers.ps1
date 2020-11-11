@@ -1,5 +1,6 @@
 ﻿# v1 Синхронизируем принтеры и привязываем к локациям
 # - Перебираем записи с максимальным NK в С2 и создаем принтеры которых нет в OTRS
+# Example sync CMDB objects - printers with other source with link to locations
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference='Stop'

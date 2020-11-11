@@ -1,4 +1,5 @@
-﻿   function get-domainuser-login{
+﻿   #Example Import tickets from old system
+   function get-domainuser-login{
             [CmdletBinding()]
 	param (
        [Parameter( Mandatory = $true )] [string] $ID_Personel
@@ -13,7 +14,7 @@
             }
     }
 
-   function synch-tickets{
+   function sync-tickets{
 
       . "$PSScriptRoot\functions.ticket.ps1"
       . "$PSScriptRoot\functions.link.ps1"
@@ -40,7 +41,7 @@
     }
    }
 
-   function synch-16-tickets{
+   function sync-16-tickets{
 
     . "$PSScriptRoot\functions.ticket.ps1"
     . "$PSScriptRoot\functions.link.ps1"
@@ -51,7 +52,6 @@
     $Logger.AddInfoRecord("$($MyInvocation.MyCommand.Name) $($MyInvocation.BoundParameters.Values[0]) ")
 
     [string]$DatabaseName = 'LaRevue2'
-    [string]$SQLServerName = 'vsql2016.novator.ru'
 
     [string]$connString = 'Server=' + $SQLServerName + ';Database=' + $DatabaseName + ';Persist Security Info=False;Integrated Security=SSPI'
     [string]$SQLCommand = "Select Cards.RegNoPrefix, Cards.RegNoValue, Tasks.[Text], StartDate, ActualEndDate, [Status], AuthorId, ApplicantId from 
@@ -74,8 +74,6 @@
         Write-host Owner $Owner
         [string]$RegNoPrefix = $cmdR['RegNoPrefix'].ToString()
         $Text = $cmdR['Text']
-        $ww = $cmdR['StartDate']
-        #$Title = "16_otd " $RegNoPrefix #" " $RegNoValue $cmdR['StartDate'] $Text.Substring(0,50)
         if ($Text.Length -gt 50) {$Title = $Text.Substring(0,50) } 
         else {$Title = $Text }
         $Title = "16_otd " + $RegNoPrefix + " " + $RegNoValue + " " + $cmdR['StartDate'] + " " +$Title
@@ -95,8 +93,7 @@
         #   [int] $LockID,      [string] $ArticleSubject,      [string] $ArticleBody
         #$ArticleSubjext = $RegNoPrefix + " " + $RegNoValue
 
-        # Очередь
-
+        # Query
         switch ($RegNoPrefix){
             "Norm" {$query = 12}
             "Dem" {$query = 13}
@@ -109,19 +106,8 @@
         Write-Host "query" $query
 
         create-ticket $Title $Author $Owner $query $Status 3 2 1 $ArticleSubject $Text
-        write-host ok
         #create-ticket Title_text PolyakovMV DanilovEB 1 4 3 2 1 test_article_Subject test_article_text
-    
-
 
     }
 }
     
-#. "$PSScriptRoot\functions.ticket.ps1"
-#get-ticket 76877
-#$CIId = get-ConfigItemId Computer 4563
-#        Write-Host id $CIId
-
-synch-16-tickets
-#F9D639D3-EA53-4DEA-87D5-6CBD9FE308C2
-#get-domainuser-login 'C976C3A8-B456-4387-91AB-9EAD1D8DC8F6'
