@@ -14,8 +14,23 @@ Powershell functions for OTRS SOAP API for work with CMDB classes, LinkObjects, 
  - LinkObject::LinkDelete
  - LinkObject::LinkList
  5) Go to "Admin - Web Services". Create new Webservices or import files from folder WebServices_exportfiles. In examples uses Webservices names - WS_CI and WS_Ticket
- 6) Create user for scripts with needed rights. For example - create CMDB objects.
- 6) Create and fill Set-GlobalVars.ps1
+ 6) Add Operations for your WebServices.
+ PS Functions used follow operations:
+ - ArticleBackendObject::ArticleCreate
+ - LinkObject::LinkAdd
+ - LinkObject::LinkDelete
+ - LinkObject::LinkList
+ and default operations
+ - Ticket::TicketCreate
+ - Ticket::TicketGet
+ - Ticket::Update
+ - ConfigItem::ConfigItemCreate
+ - ConfigItem::ConfigItemDelete
+ - ConfigItem::ConfigItemGet
+ - ConfigItem::ConfigItemSearch
+ - ConfigItem::ConfigItemUpdate
+ 7) Create user for scripts with needed rights. For example - create CMDB objects.
+ 8) Create and fill Set-GlobalVars.ps1
  Require Userdata, url, SOAPNameSpace.
  
  For use additional functions for classes in [OTRS 6 API](https://doc.otrs.com/doc/api/otrs/6.0/Perl/) - have to create backend perl module with functions for your operations and create XML file with description of new operation.
