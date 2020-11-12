@@ -36,7 +36,7 @@
             write-host ===================
             Write-Host nk $nk
             $CIId = get-ConfigItemId Computer $nk
-            create-link ITSMConfigItem $CIId Ticket $id RelevantTo Valid 4
+            new-link ITSMConfigItem $CIId Ticket $id RelevantTo Valid 4
         }
     }
    }
@@ -105,8 +105,7 @@
         Write-Host "RegNoPrefix" $RegNoPrefix
         Write-Host "query" $query
 
-        create-ticket $Title $Author $Owner $query $Status 3 2 1 $ArticleSubject $Text
-        #create-ticket Title_text PolyakovMV DanilovEB 1 4 3 2 1 test_article_Subject test_article_text
+        new-ticket $Title $Author $Owner $query $Status 3 2 1 $ArticleSubject $Text
 
     }
 }

@@ -9,6 +9,8 @@
     Webservice yaml files, modules and more detail: https://github/daniloveb/otrs_ps
     .PARAMETER Days
     Period
+    .EXAMPLE 
+    sync-links 2
     .LINK
    https://github/daniloveb/otrs_ps
     #>
@@ -87,7 +89,7 @@
         $Ids = $Ids | Where-Object {$_ -ne $linkedLocationId}
     }
     else {
-        create-link ITSMConfigItem $CIID ITSMConfigItem $linkedLocationId ConnectedTo Valid 1
+        new-link ITSMConfigItem $CIID ITSMConfigItem $linkedLocationId ConnectedTo Valid 1
     }
     # Проверяем класс у ids
     #$IDs | Get-ConfigItem | ForEach-Object {$Class = $_.Class} | $ac += $_ #| If ($Class -eq 'Location'){ $Locs }
@@ -98,8 +100,3 @@
     }
 }
 }
-
-#. "$PSScriptRoot\functions.location.ps1"
-#. "$PSScriptRoot\functions.link.ps1"
-#. "$PSScriptRoot\functions.share.ps1"
-#synch-links 2

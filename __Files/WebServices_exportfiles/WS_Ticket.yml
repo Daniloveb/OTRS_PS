@@ -1,0 +1,58 @@
+---
+Debugger:
+  DebugThreshold: debug
+  TestMode: '0'
+Description: ''
+FrameworkVersion: 6.0.23
+Provider:
+  Operation:
+    Operation_ArticleCreate:
+      Description: ''
+      IncludeTicketData: '0'
+      MappingInbound:
+        Type: Simple
+      MappingOutbound:
+        Type: Simple
+      Type: ArticleBackendObject::ArticleCreate
+    Operation_TicketCreate:
+      Description: ''
+      IncludeTicketData: '0'
+      MappingInbound:
+        Type: Simple
+      MappingOutbound:
+        Type: Simple
+      Type: Ticket::TicketCreate
+    Operation_TicketGet:
+      Description: ''
+      IncludeTicketData: '0'
+      MappingInbound:
+        Type: Simple
+      MappingOutbound:
+        Type: Simple
+      Type: Ticket::TicketGet
+    Operation_TicketUpdate:
+      Description: ''
+      IncludeTicketData: '0'
+      MappingInbound:
+        Type: Simple
+      MappingOutbound:
+        Type: Simple
+      Type: Ticket::TicketUpdate
+  Transport:
+    Config:
+      AdditionalHeaders: ~
+      MaxLength: '100000'
+      NameSpace: http://www.otrs.org/Connector/
+      RequestNameFreeText: ''
+      RequestNameScheme: Plain
+      ResponseNameFreeText: ''
+      ResponseNameScheme: Response
+      SOAPAction: Yes
+      SOAPActionFreeText: ''
+      SOAPActionScheme: NameSpaceSeparatorOperation
+      SOAPActionSeparator: /
+    Type: HTTP::SOAP
+RemoteSystem: ''
+Requester:
+  Transport:
+    Type: ''

@@ -1,5 +1,5 @@
 ﻿$WebServiceName = "WS_Ticket"
-function create-ticket {
+function new-ticket {
    <#
    .SYNOPSIS
    OTRS SOAP Action for create Ticket
@@ -28,7 +28,7 @@ function create-ticket {
    .PARAMETER ArticleBody
    Article text
    .EXAMPLE
-   create-ticket Title_text PolyakovMV DanilovEB 1 4 3 2 1 test_article_Subject test_article_text
+   new-ticket Title_text PolyakovMV DanilovEB 1 4 3 2 1 test_article_Subject test_article_text
    .LINK
    https://github/daniloveb/otrs_ps
    #>
@@ -90,7 +90,7 @@ $id = ([xml]$data).Envelope.Body.Operation_TicketCreateResponse.ArticleID
 return $id
 }
 
-function create-article{
+function new-article{
    <#
    .SYNOPSIS
    OTRS SOAP Action for create article for Ticket
@@ -109,7 +109,7 @@ function create-article{
    .PARAMETER UserID
    User id - 4 = srv_otrs
    .EXAMPLE
-   create-article 89858 agent 4 1 4 "article_body"
+   new-article 89858 agent 4 1 4 "article_body"
    .LINK
    https://github/daniloveb/otrs_ps
    #>

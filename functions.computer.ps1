@@ -1,4 +1,4 @@
-﻿function create-computer {
+﻿function new-computer {
    <#
    .SYNOPSIS
    OTRS SOAP Action for create Configuration Item: Computer
@@ -25,7 +25,7 @@
    .PARAMETER Secure
    string field
    .EXAMPLE
-   update-computer 10019 3350 IvanovAE 'Склад' 'Исправен' 'Local' 'Desktop' 'description' 'model' 'No'
+   new-computer 3003 MarkovPI 'В работе' 'Исправен' 'Local' 'Десктоп' 'описание' 'модель' ''
    .LINK
    https://github/daniloveb/otrs_ps
    #>
@@ -177,16 +177,3 @@ $data = request-SOAP $WebServiceName $OperationName $XMLData
 $id = ([xml]$data).Envelope.Body.Operation_CI_UpdateResponse.ConfigItemID
 return $id
 }
-
-
-
-#create-computer 6666 DanilovEB 'В работе' 'Исправен' 'Local' 'Десктоп' 'описание' 'модель' ''
-#id 10019 arm-3350
-#update-computer 10019 3350 YurlovYUE 'Склад' 'Исправен' #'Local' 'Десктоп' 'описание2' 'модель' 'No'
-#update-computer 6262 711 ' ' 'Склад' 'Исправен' #'Local' 'Десктоп' 'описание2' 'модель' 'No'
-#create-hardware 2337 DanilovEB 'В работе' 'Исправен' 'Local' 'СХД' 'описание' 'модель' 'No'
-#update-hardware 4688 2337 DanilovEB 'Склад' 'Исправен' 'Local' 'описание2' 'модель' 'No'
-#create-location Корпус98 Daniloveb
-#search-id Hardware 2338
-#create-computer 3003 MarkovPI 'В работе' 'Исправен' 'Local' 'Десктоп' 'описание' 'модель' ''
-#create-printer 5555 'PRN 5555_HP_LJ1120' 'В работе' 'Исправен' '' 'HP_LJ1120' '192.168.21.142' '00-00-00-00-00-00'

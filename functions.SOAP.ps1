@@ -35,7 +35,6 @@ $enc_utf = [System.Text.Encoding]::UTF8
 $Body = $enc_utf.GetBytes($XMLData)
 
 $Request = [System.Net.HttpWebRequest]::Create("$Url$WEBServiceName")
-#$Request.Headers.Add("SOAPAction", "http://www.otrs.org/Connector/Operation_CI_Create")
 
 $Request.Headers.Add("SOAPAction", "$SOAPNameSpace$OperationName")
 $Request.Method="POST"
@@ -52,6 +51,3 @@ $readStream = New-Object System.IO.StreamReader $requestStream
 $data = $readStream.ReadToEnd()
 return $data
 }
-
-
-#SOAP.Request 1 2 3 4

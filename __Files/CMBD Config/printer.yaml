@@ -1,0 +1,76 @@
+﻿---
+- Input:
+    MaxLength: 50
+    Size: 50
+    Type: Text
+  Key: Vendor
+  Name: Vendor
+  Searchable: 1
+- Input:
+    MaxLength: 50
+    Size: 50
+    Type: Text
+  Key: Model
+  Name: Model
+  Searchable: 1
+- Input:
+    Type: TextArea
+  Key: Description
+  Name: Description
+  Searchable: 1
+- Input:
+    Type: CustomerCompany
+  Key: CustomerID
+  Name: Customer Company
+  Searchable: 1
+- Input:
+    Type: Customer
+  Key: Owner
+  Name: Owner
+  Searchable: 1
+- Input:
+    MaxLength: 100
+    Size: 50
+    Type: Text
+  Key: SerialNumber
+  Name: Serial Number
+  Searchable: 1
+- Input:
+    MaxLength: 100
+    Size: 50
+    Type: Text
+  Key: NK
+  Required: 1
+  Name: NK
+  Searchable: 1
+- Input:
+    MaxLength: 40
+    Size: 40
+    Type: Text
+  Key: IPAddress
+  Required: 0
+  Name: IP Address
+  Searchable: 1
+- Input:
+    MaxLength: 40
+    Size: 40
+    Type: Text
+  Key: MACAddress
+  Required: 0
+  Name: MACAddress
+  Searchable: 1
+- Input:
+    Type: Date
+    YearPeriodFuture: 10
+    YearPeriodPast: 20
+  Key: WarrantyExpirationDate
+  Name: Warranty Expiration Date
+  Searchable: 1
+- CountDefault: 0
+  CountMin: 0
+  Input:
+    Required: 0
+    Type: TextArea
+  Key: Note
+  Name: Note
+  Searchable: 1

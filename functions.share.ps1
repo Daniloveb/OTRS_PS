@@ -140,6 +140,3 @@ $result.add("VersionID",([xml]$data).Envelope.Body.Operation_CI_GetResponse.Conf
 
 return $result
 }
-
-#$id = get-configitemid Computer 4438
-#Write-Host $id

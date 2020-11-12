@@ -1,5 +1,5 @@
 ﻿$ClassName = "Hardware"
-function create-hardware {
+function new-hardware {
    <#
    .SYNOPSIS
    OTRS SOAP Action for create Configuration Item: Hardware
@@ -27,6 +27,8 @@ function create-hardware {
    string field
    .PARAMETER Network
    ITSM::ConfigItem::Network::Type
+   .EXAMPLE
+   new-hardware  7777 'В работе' 'Исправен' DanilovEB 'СХД' 'описание' 'модель' 'No' 'Local'
    #>
     [CmdletBinding()]
      param (
@@ -170,6 +172,3 @@ $data = request-SOAP $WebServiceName $OperationName $XMLData
 $id = ([xml]$data).Envelope.Body.Operation_CI_UpdateResponse.ConfigItemID
 return $id
 }
-
- #create-hardware  7777 'В работе' 'Исправен' DanilovEB 'СХД' 'описание' 'модель' 'No' 'Local'
- #update-hardware 11165 7777 'Склад' 'Исправен' DanilovEB 'СХД' 'описание222' 'модель' 'No' 'Local'

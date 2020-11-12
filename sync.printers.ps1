@@ -44,8 +44,8 @@ while ($cmdR.Read()) {
 $id = get-ConfigItemId "Printer" $NK
 Write-Host ('id ' + $id)
 if ([string]::IsNullOrEmpty($id)){
-    $configitem_id = create-printer $NK $Name $State $Incident $Description $Model $IPAddress $MACAddress
-    Write-Host ('Create printer ' + $NK)
+    $configitem_id = new-printer $NK $Name $State $Incident $Description $Model $IPAddress $MACAddress
+    Write-Host ('New printer ' + $NK)
 
             #====================================================================================================
             #   Link to locations

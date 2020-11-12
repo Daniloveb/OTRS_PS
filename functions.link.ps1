@@ -1,4 +1,4 @@
-﻿function create-link {
+﻿function new-link {
     <#
    .SYNOPSIS
    OTRS SOAP Action for create link
@@ -21,7 +21,7 @@
    .PARAMETER UserId
    Id field from table public.users
    .EXAMPLE
-   create-link ITSMConfigItem 7301 ITSMConfigItem 4840 ConnectedTo Valid 1
+   new-link ITSMConfigItem 7301 ITSMConfigItem 4840 ConnectedTo Valid 1
    .LINK
    https://github/daniloveb/otrs_ps
    #>

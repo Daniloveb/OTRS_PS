@@ -1,5 +1,5 @@
 ﻿$ClassName = "Printer"
-function create-printer {
+function new-printer {
     <#
    .SYNOPSIS
    OTRS SOAP Action for create Configuration Item: Printer
@@ -28,7 +28,7 @@ function create-printer {
    .PARAMETER MACAddress
    string field
    .EXAMPLE
-   create-printer 5555 'PRN 5555_HP_LJ1120' 'В работе' 'Исправен' ' ' 'HP_LJ1120' '192.168.21.142' '00-00-00-00-00-00'
+   new-printer 5555 'PRN 5555_HP_LJ1120' 'В работе' 'Исправен' ' ' 'HP_LJ1120' '192.168.21.142' '00-00-00-00-00-00'
    .LINK
    https://github/daniloveb/otrs_ps
    #>
